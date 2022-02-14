@@ -1,0 +1,13 @@
+
+Features needed for GradeAnalysis class
+
+1. Initialization of all the objects in GradeAnalysis class
+2. Load from ReadHelper to each object
+3. Complete all the functions' implementation for GradeAnalysis class
+4. Analyze the data
+5. Simple User Interface. For example ask the user to provide folder address
+
+
+
+
+

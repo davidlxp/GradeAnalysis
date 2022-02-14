@@ -1,0 +1,13 @@
+the idx of question, the corresponding concept
+1 Arrays Hold Multiple Values
+1 Pointer Variables
+2 Arrays as Function Arguments
+3 Comparing Pointers
+4 Pointer Variables
+5 Pointer Variables
+6 Initializing Pointers
+7 Pointers as Function Parameters
+8 Arrays as Function Arguments
+8 Pointer Variables
+9 Arrays Hold Multiple Values
+10 Pointer Variables
