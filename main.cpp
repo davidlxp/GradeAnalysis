@@ -18,6 +18,7 @@ int main() {
 //    cout << helper.answerKey.size() << endl;
 
     GradeAnalysis gradeAnalysis;
+//    gradeAnalysis.LoadOneQuiz("Files");
     gradeAnalysis.LoadOneQuiz("../Files");
 
 
