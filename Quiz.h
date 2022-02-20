@@ -55,8 +55,8 @@ private:
     string courseId;
     string quizId;
 
-    int questionAmount;
-    int studentAmount;
+    int questionAmount = 0;
+    int studentAmount = 0;
 
     vector<Question*> questionPtrList;
     vector<AnswerSheet*> answerSheetPtrList;

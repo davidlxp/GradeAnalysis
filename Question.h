@@ -39,7 +39,7 @@ public:
     void SetQuizId(string id) { quizId = id; }
     void SetQuestionId(int id) { questionId = id; }
     void SetAnswerKey(string key) { answerKey = key; }
-    void SetConceptAmount(int amount) { conceptAmount = amount; }
+    void UpdateConceptAmount() { conceptAmount = conceptPtrList.size(); }
 
     /**
      * @Brief add Concept pointer to the list
@@ -49,10 +49,10 @@ public:
 private:
     string courseId;
     string quizId;
-    int questionId;
+    int questionId = -1;
 
     string answerKey;
-    int conceptAmount;
+    int conceptAmount = 0;
 
     // A list of concepts tested in this question
     vector<Concept*> conceptPtrList;

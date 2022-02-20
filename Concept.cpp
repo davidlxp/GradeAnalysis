@@ -4,13 +4,13 @@
 
 #include "Concept.h"
 
-Concept::Concept(string textbook1, double conceptId1) {
+Concept::Concept(string textbook1, string conceptId1) {
     textbook = textbook1;
     conceptId = conceptId1;
 }
 
 size_t Concept::GetId() {
-    string originalId = textbook + to_string(conceptId);
+    string originalId = textbook + conceptId;
     size_t hashedId = myTools.Hash(originalId);
     return hashedId;
 }

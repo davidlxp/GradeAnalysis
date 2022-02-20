@@ -50,7 +50,7 @@ public:
 
 private:
     string studentName;
-    int studentId;
+    int studentId = -1;
     vector<AnswerSheet*> answerSheetPtrList;
 
     UsefulTools myTools;

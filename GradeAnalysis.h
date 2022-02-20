@@ -22,7 +22,6 @@ using namespace std;
 
 class GradeAnalysis {
 public:
-    GradeAnalysis();
 
     // ======================== Getters ======================== //
 
@@ -32,10 +31,10 @@ public:
     Student* GetStudentPtr(int studentId);
 
     /**
-     * @Brief two overloaded "GetConceptPtr" functions
+     * @Brief two different function to get Concept pointers
      */
-    Concept* GetConceptPtr(string textbook, double conceptId);
-    Concept* GetConceptPtr(string textbook, string concept);
+    Concept* GetConceptPtr(string, string);
+    Concept* GetConceptPtrByName(string, string);
 
     // ======================== Setters ======================== //
 
@@ -50,12 +49,12 @@ public:
     /**
      * @Brief load all the information from files for one quiz
      */
-    void LoadOneQuiz(string folderPath);
+    void LoadOneQuiz(string);
 
     /**
      * @Brief grade all the student answers for one quiz
      */
-    void GradeOneQuiz(string courseId, string quizId);
+    void GradeOneQuiz(string, string);
 
     /**
      * @Brief providing analysis report for one quiz
@@ -63,7 +62,6 @@ public:
     void AnalyzeOneQuiz(string courseId, string quizId);
 
 private:
-    ReadHelper helper;
     vector<Concept*> conceptPtrList;
     vector<Quiz*> quizPtrList;
     vector<Question*> questionPtrList;

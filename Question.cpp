@@ -19,10 +19,6 @@ size_t Question ::GetId() {
 }
 
 void Question ::AddConceptPtr(Concept* ptr) {
-    bool judge = myTools.JudgePtrInList(conceptPtrList, ptr);
-    if (!judge)
-        conceptPtrList.push_back(ptr);
-    else
-        cout << "The Concept is already exist" << endl;
+    myTools.AddPtrToList(conceptPtrList, ptr);
 }
 

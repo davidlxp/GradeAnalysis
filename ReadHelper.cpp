@@ -24,7 +24,8 @@ void ReadHelper ::ReadQuizInfo(string quizInfoPath) {
     } else
         cout << "Unable to open the file: "
              << "\n"
-             << quizInfoPath;
+             << quizInfoPath
+             << "\n\n";
     return;
 }
 
@@ -66,7 +67,8 @@ void ReadHelper ::ReadStudentAnswer(string stuAnswerPath) {
     } else
         cout << "Unable to open the file: "
              << "\n"
-             << stuAnswerPath;
+             << stuAnswerPath
+             << "\n\n";
     return;
 }
 
@@ -86,7 +88,8 @@ void ReadHelper ::ReadAnswerKey(string answerKeyPath) {
     } else
         cout << "Unable to open the file: "
              << "\n"
-             << answerKeyPath;
+             << answerKeyPath
+             << "\n\n";
     return;
 }
 
@@ -113,7 +116,8 @@ void ReadHelper ::ReadMap(string mapPath) {
     } else
         cout << "Unable to open the file: "
              << "\n"
-             << mapPath;
+             << mapPath
+             << "\n\n";
     return;
 }
 
@@ -151,12 +155,14 @@ void ReadHelper ::ReadConcept(string conceptPath) {
                 l.push_back(tempList[tempList.size() - 1]);  // page
                 conceptList.push_back(l);
             }
+            tracker++;
         }
         file1.close();
     } else
         cout << "Unable to open the file: "
              << "\n"
-             << conceptPath;
+             << conceptPath
+             << "\n\n";
     return;
 }
 

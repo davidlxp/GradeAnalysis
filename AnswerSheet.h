@@ -47,6 +47,7 @@ public:
     void AddAnswer(string answer) { studentAnswer.push_back(answer); }
     void AddGradedAnswer(bool answer) { gradedAnswer.push_back(answer); }
     void SetErrorNum(int num) { errorNum = num; }
+    void SetQuestionAmount(int amount) { questionAmount = amount; }
 
     /**
      * @Brief add Question pointer to the list
@@ -56,10 +57,10 @@ public:
 private:
     string courseId;
     string quizId;
-    int studentId;
+    int studentId = -1;
 
-    int errorNum;
-    int questionAmount;
+    int errorNum = 0;
+    int questionAmount = 0;
 
     vector<string> studentAnswer;
     vector<bool> gradedAnswer;

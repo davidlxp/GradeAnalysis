@@ -19,10 +19,6 @@ size_t AnswerSheet ::GetId() {
 }
 
 void AnswerSheet ::AddQuestionPtr(Question *ptr) {
-    bool judge = myTools.JudgePtrInList(questionPtrList, ptr);
-    if (!judge)
-        questionPtrList.push_back(ptr);
-    else
-        cout << "The Question is already exist" << endl;
+    myTools.AddPtrToList(questionPtrList, ptr);
 }
 

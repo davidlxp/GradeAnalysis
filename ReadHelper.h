@@ -22,8 +22,8 @@ public:
     string courseId;
     string quizId;
     vector<int> studentIds;
-    int studentAmount;
-    int questionAmount;
+    int studentAmount = 0;
+    int questionAmount = 0;
 
     vector<vector<string> > studentAnswer;
     vector<string> answerKey;
@@ -59,6 +59,21 @@ public:
      * @Brief read all the txt files
      */
     void ReadAll(string folderPath);
+
+//    /**
+//     * @Brief Temporary function to check if reading successful
+//     */
+//     void PrintDVector(vector<vector<string> > vec){
+//         for(int i=0; i<vec.size(); ++i)
+//         {
+//             for(int j=0; j<vec[i].size(); ++j){
+//                 cout << vec[i][j];
+//                 cout << " | ";
+//             }
+//             cout << endl;
+//         }
+//     }
+
 };
 
 

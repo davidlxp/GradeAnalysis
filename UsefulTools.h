@@ -55,8 +55,14 @@ public:
      * @Brief template function adds an object ptr into an existing a list of
      * object ptr
      */
-//    template <class T>
-//    bool AddPtrToList(vector<T*>&, T*);
+    template <class T>
+    void AddPtrToList(vector<T*>&, T*);
+
+    /**
+     * @Brief template function gets an object ptr from a list
+     */
+    template <class T>
+    T* GetPtrById(vector<T*>&, size_t);
 
     /**
      * @Brief hashing a string to a unique sequence of int
@@ -77,13 +83,26 @@ bool UsefulTools::JudgePtrInList(vector<T*>& onePtrList, T* objPtr) {
     return judge;
 }
 
-//template <class T>
-//bool UsefulTools::AddPtrToList(vector<T*>& onePtrList, T* objPtr) {
-//    bool judge = JudgePtrInList(onePtrList, objPtr);
-//    if (!judge)
-//        onePtrList.push_back(objPtr);
-//    else
-//        cout << "The object is already exist" << endl;
-//}
+template <class T>
+void UsefulTools::AddPtrToList(vector<T*>& onePtrList, T* objPtr) {
+    bool judge = JudgePtrInList(onePtrList, objPtr);
+    if (!judge)
+        onePtrList.push_back(objPtr);
+    else
+        cout << "The object of type [" << typeid(*objPtr).name() << "] is already exist" << endl;
+}
+
+template <class T>
+T* UsefulTools::GetPtrById(vector<T*>& onePtrList, size_t uniqueId) {
+    T *objPtr = nullptr;
+    for (int i = 0; i < onePtrList.size(); ++i) {
+        if (onePtrList[i]->GetId() == uniqueId) {
+            objPtr = onePtrList[i];
+            break;
+        }
+    }
+    return objPtr;
+}
+
 
 #endif //GRADEANALYSIS_USEFULTOOLS_H

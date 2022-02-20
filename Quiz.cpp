@@ -16,17 +16,9 @@ size_t Quiz ::GetId() {
 }
 
 void Quiz ::AddQuestionPtr(Question* ptr) {
-    bool judge = myTools.JudgePtrInList(questionPtrList, ptr);
-    if (!judge)
-        questionPtrList.push_back(ptr);
-    else
-        cout << "The Question is already exist" << endl;
+    myTools.AddPtrToList(questionPtrList, ptr);
 }
 
 void Quiz ::AddAnswerSheetPtr(AnswerSheet* ptr) {
-    bool judge = myTools.JudgePtrInList(answerSheetPtrList, ptr);
-    if (!judge)
-        answerSheetPtrList.push_back(ptr);
-    else
-        cout << "The Answer Sheet is already exist" << endl;
+    myTools.AddPtrToList(answerSheetPtrList, ptr);
 }

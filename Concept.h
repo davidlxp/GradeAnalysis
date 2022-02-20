@@ -16,7 +16,7 @@ using namespace std;
 
 class Concept {
 public:
-    Concept(string, double);
+    Concept(string, string);
 
     // ======================== Getters ======================== //
 
@@ -28,7 +28,7 @@ public:
     string GetTextbook() { return textbook; }
     int GetChapterId() { return chapterId; }
     string GetChapter() { return chapter; }
-    double GetConceptId() { return conceptId; }
+    string GetConceptId() { return conceptId; }
     string GetConcept() { return concept; }
     int GetPage() { return page; }
 
@@ -37,17 +37,17 @@ public:
     void SetTextbook(string name) { textbook = name; }
     void SetChapterId(int id) { chapterId = id; }
     void SetChapter(string name) { chapter = name; }
-    void SetConceptId(double id) { conceptId = id; }
+    void SetConceptId(string id) { conceptId = id; }
     void SetConcept(string name) { concept = name; }
     void SetPage(int num) { page = num; }
 
 private:
     string textbook;
-    int chapterId;
+    int chapterId = -1;
     string chapter;
-    double conceptId;
+    string conceptId;
     string concept;
-    int page;
+    int page = -1;
 
     UsefulTools myTools;
 };
