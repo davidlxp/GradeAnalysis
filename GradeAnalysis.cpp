@@ -141,13 +141,17 @@ void GradeAnalysis::LoadOneQuiz(string folderPath) {
            }
        }
 
-        // Add Answer Sheet pointers to Student
-        for(int i=0; i<helper.studentAmount; ++i){
-            Student* aStudentPtr = GetStudentPtr(helper.studentIds[i]);
-            int studentId = aStudentPtr->GetStudentId();
-            AnswerSheet* aAnswerSheetPtr = GetAnswerSheetPtr(helper.courseId, helper.quizId, studentId);
-            aStudentPtr->AddAnswerSheetPtr(aAnswerSheetPtr);
-        }
+       // Add Answer Sheet pointers to Student
+       for(int i=0; i<helper.studentAmount; ++i)
+       {
+           Student* aStudentPtr = GetStudentPtr(helper.studentIds[i]);
+           int studentId = aStudentPtr->GetStudentId();
+           AnswerSheet* aAnswerSheetPtr = GetAnswerSheetPtr(helper.courseId, helper.quizId, studentId);
+           aStudentPtr->AddAnswerSheetPtr(aAnswerSheetPtr);
+       }
+
+       // Grade one quiz after loading
+       GradeOneQuiz(helper.courseId, helper.quizId);
     }
     else
     {
@@ -155,10 +159,31 @@ void GradeAnalysis::LoadOneQuiz(string folderPath) {
     }
 }
 
-//void GradeAnalysis::GradeOneQuiz(string courseId, string quizId){
-//    Quiz* quizPtr = GetQuizPtr(courseId, quizId);
-//
-//
-//}
+void GradeAnalysis::GradeOneQuiz(string courseId, string quizId){
+    Quiz* quizPtr = GetQuizPtr(courseId, quizId);
+
+    // Grade Answer Sheets
+    for(int i=0; i<quizPtr->GetStudentAmount(); ++i)
+    {
+        AnswerSheet* asPtr = quizPtr->GetAnswerSheetPtr(i);
+        int error=0;
+
+        for(int j=0; j<quizPtr->GetQuestionAmount(); ++j)
+        {
+            string key = asPtr->GetQuestionPtr(j)->GetAnswerKey();
+            string studentAnswer = asPtr->GetAnswer(j);
+            if(studentAnswer == key)
+                asPtr->AddGradedAnswer(true);
+            else
+            {
+                asPtr->AddGradedAnswer(false);
+                error++;
+            }
+        }
+
+        // Update the error number
+        asPtr->SetErrorNum(error);
+    }
+}
 
 
