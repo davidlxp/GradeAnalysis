@@ -28,11 +28,11 @@ public:
     string GetQuizId() { return quizId; }
     int GetQuestionAmount() { return questionAmount; }
     int GetStudentAmount() { return studentAmount; }
+    int GetConceptAmount() { return conceptAmount; }
     Question* GetQuestionPtr(int index) { return questionPtrList[index]; }
-
-    AnswerSheet* GetAnswerSheetPtr(int index) {
-        return answerSheetPtrList[index];
-    }
+    AnswerSheet* GetAnswerSheetPtr(int index) { return answerSheetPtrList[index]; }
+    Concept* GetConceptPtr(int index) { return conceptPtrList[index]; }
+    bool ConceptExist(Concept* ptr){ return myTools.JudgePtrInList(conceptPtrList, ptr); }
 
     // ======================== Setters ======================== //
 
@@ -40,6 +40,7 @@ public:
     void SetQuizId(string id) { quizId = id; }
     void SetQuestionAmount(int amount) { questionAmount = amount; }
     void SetStudentAmount(int amount) { studentAmount = amount; }
+    void UpdateConceptAmount() { conceptAmount = conceptPtrList.size(); }
 
     /**
      * @Brief add a Question pointer to the list
@@ -51,15 +52,24 @@ public:
      */
     void AddAnswerSheetPtr(AnswerSheet* ptr);
 
+    /**
+     * @Brief add a Answer Sheet pointer to the list
+     */
+    void AddConceptPtr(Concept* ptr);
+
+
+
 private:
     string courseId;
     string quizId;
 
     int questionAmount = 0;
     int studentAmount = 0;
+    int conceptAmount = 0;
 
     vector<Question*> questionPtrList;
     vector<AnswerSheet*> answerSheetPtrList;
+    vector<Concept*> conceptPtrList;
 
     UsefulTools myTools;
 };

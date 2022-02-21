@@ -7,20 +7,13 @@
 using namespace std;
 
 int main() {
-    std::cout << "Hello, World!" << std::endl;
-
-
-//    ReadHelper helper;
-//    helper.ReadAll("../Files");
-//    cout << helper.conceptList.size() << endl;
-//    cout << helper.mapQuestionConcept.size() << endl;
-//    cout << helper.studentAnswer.size() << endl;
-//    cout << helper.answerKey.size() << endl;
 
     GradeAnalysis gradeAnalysis;
 //    gradeAnalysis.LoadOneQuiz("Files");
     gradeAnalysis.LoadOneQuiz("../Files");
+    gradeAnalysis.AnalyzeOneQuiz("csc27774", "quiz1");
 
+    string xx = "Pointers as Function Parameters";
 
 
 

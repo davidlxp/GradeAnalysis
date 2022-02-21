@@ -9,6 +9,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include<cmath>
 using namespace std;
 
 // "UsefulTools" Class for storing useful function in this project
@@ -68,6 +69,30 @@ public:
      * @Brief hashing a string to a unique sequence of int
      */
     size_t Hash(string);
+
+    /**
+     * @Brief reformat the string to make it occupy a standard space
+     */
+    string SpaceString(string, int);
+
+    /**
+     * @Brief get mean value from a vector of number
+     */
+    template <class T>
+    T GetMean(vector<T>&);
+
+    /**
+     * @Brief get standard deviation value from a vector of number
+     */
+    template <class T>
+    T GetSD(vector<T>&);
+
+    /**
+     * @Brief round a number
+     */
+    template <class T>
+    T Round(T, int);
+
 };
 
 template <class T>
@@ -104,5 +129,28 @@ T* UsefulTools::GetPtrById(vector<T*>& onePtrList, size_t uniqueId) {
     return objPtr;
 }
 
+template <class T>
+T UsefulTools::GetMean(vector<T>& list){
+    T sum=0;
+    for(int i=0; i<list.size(); ++i){
+        sum += list[i];
+    }
+    return (sum / list.size());
+}
+
+template <class T>
+T UsefulTools::GetSD(vector<T>& list){
+    T mean = GetMean(list);
+    T agg = 0;
+    for(int i=0; i<list.size(); ++i)
+        agg += pow(list[i] - mean, 2);
+    return (sqrt(agg / list.size()));
+}
+
+template <class T>
+T UsefulTools::Round(T num, int numDecimal){
+    int multi = pow(10, numDecimal);
+    return(round(num * multi) / multi);
+}
 
 #endif //GRADEANALYSIS_USEFULTOOLS_H

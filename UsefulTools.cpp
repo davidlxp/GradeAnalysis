@@ -68,3 +68,13 @@ size_t UsefulTools::Hash(string s) {
     size_t hash = std::hash<string>{}(s);
     return hash;
 }
+
+string UsefulTools::SpaceString(string text, int space){
+    if(text.length() >= space)
+        return text;
+    else
+    {
+        int extra = space - text.length();
+        return (text + RepeatString(" ", extra));
+    }
+}

@@ -110,13 +110,6 @@ void GradeAnalysis::LoadOneQuiz(string folderPath) {
             AddConceptPtr(conceptPtr);
         }
 
-        // Add Question pointers and Answer Sheet pointers to Quiz
-        Quiz *theQuizPtr = GetQuizPtr(helper.courseId, helper.quizId);
-        for(int i=0; i<helper.questionAmount; ++i)
-            theQuizPtr->AddQuestionPtr(GetQuestionPtr(helper.courseId, helper.quizId, i+1));
-        for(int i=0; i<helper.studentAmount; ++i)
-            theQuizPtr->AddAnswerSheetPtr(GetAnswerSheetPtr(helper.courseId, helper.quizId, helper.studentIds[i]));
-
         // Add Concept pointers to Question
         for (int i = 0; i < helper.mapQuestionConcept.size(); ++i) {
 
@@ -131,27 +124,49 @@ void GradeAnalysis::LoadOneQuiz(string folderPath) {
             aQuestion->UpdateConceptAmount();   // update the tracker ("num of concepts" in this Question)
         }
 
+        // Add Question pointers and Concept pointers to Quiz
+        Quiz *theQuizPtr = GetQuizPtr(helper.courseId, helper.quizId);
+        for(int i=0; i<helper.questionAmount; ++i)
+        {
+            /* Add Question pointers */
+            Question* questionPtr = GetQuestionPtr(helper.courseId, helper.quizId, i+1);
+            theQuizPtr->AddQuestionPtr(questionPtr);
+
+            /* Add Concept pointers */
+            for(int j=0; j<questionPtr->GetConceptAmount() ;++j)
+            {
+                Concept* conceptPtr = questionPtr->GetConceptPtr(j);
+                if(!theQuizPtr->ConceptExist(conceptPtr))
+                    theQuizPtr->AddConceptPtr(conceptPtr);
+            }
+        }
+        theQuizPtr->UpdateConceptAmount();  // Update concept amount
+
+        // Add Answer Sheet pointers to Quiz
+        for(int i=0; i<helper.studentAmount; ++i)
+            theQuizPtr->AddAnswerSheetPtr(GetAnswerSheetPtr(helper.courseId, helper.quizId, helper.studentIds[i]));
+
         // Add Question pointers to Answer Sheet objects
-       for(int i=0; i<helper.studentAmount; ++i)
-       {
-           AnswerSheet* aAnswerSheetPtr = GetAnswerSheetPtr(helper.courseId, helper.quizId, helper.studentIds[i]);
-           for(int j=0; j<helper.questionAmount; ++j)
-           {
-               aAnswerSheetPtr->AddQuestionPtr(GetQuestionPtr(helper.courseId, helper.quizId, j+1));
-           }
-       }
+        for(int i=0; i<helper.studentAmount; ++i)
+        {
+            AnswerSheet* aAnswerSheetPtr = GetAnswerSheetPtr(helper.courseId, helper.quizId, helper.studentIds[i]);
+            for(int j=0; j<helper.questionAmount; ++j)
+            {
+                aAnswerSheetPtr->AddQuestionPtr(GetQuestionPtr(helper.courseId, helper.quizId, j+1));
+            }
+        }
 
-       // Add Answer Sheet pointers to Student
-       for(int i=0; i<helper.studentAmount; ++i)
-       {
-           Student* aStudentPtr = GetStudentPtr(helper.studentIds[i]);
-           int studentId = aStudentPtr->GetStudentId();
-           AnswerSheet* aAnswerSheetPtr = GetAnswerSheetPtr(helper.courseId, helper.quizId, studentId);
-           aStudentPtr->AddAnswerSheetPtr(aAnswerSheetPtr);
-       }
+        // Add Answer Sheet pointers to Student
+        for(int i=0; i<helper.studentAmount; ++i)
+        {
+            Student* aStudentPtr = GetStudentPtr(helper.studentIds[i]);
+            int studentId = aStudentPtr->GetStudentId();
+            AnswerSheet* aAnswerSheetPtr = GetAnswerSheetPtr(helper.courseId, helper.quizId, studentId);
+            aStudentPtr->AddAnswerSheetPtr(aAnswerSheetPtr);
+        }
 
-       // Grade one quiz after loading
-       GradeOneQuiz(helper.courseId, helper.quizId);
+        // Grade one quiz after loading
+        GradeOneQuiz(helper.courseId, helper.quizId);
     }
     else
     {
@@ -183,7 +198,100 @@ void GradeAnalysis::GradeOneQuiz(string courseId, string quizId){
 
         // Update the error number
         asPtr->SetErrorNum(error);
+
+        // Set error rate
+        asPtr->SetErrorRate(error/(double)asPtr->GetQuestionAmount());
     }
+}
+
+void GradeAnalysis::AnalyzeOneQuiz(string courseId, string quizId){
+
+    Quiz* quizPtr = GetQuizPtr(courseId, quizId);
+
+    // Introduction of the quiz
+    string title = quizPtr->GetCourseId() + "-" + quizPtr->GetQuizId() + " Analysis Report";
+    string statTitle = myTools.RepeatString("-",12) + " Basic Statistics " + myTools.RepeatString("-",12);
+
+    int qNum = quizPtr->GetQuestionAmount();
+    int sNum = quizPtr->GetStudentAmount();
+    int cNum = quizPtr->GetConceptAmount();
+
+    // Get Basic Statistics
+    vector<double> errorRates;
+    for(int i=0; i<sNum; ++i)
+        errorRates.push_back(quizPtr->GetAnswerSheetPtr(i)->GetErrorRate());
+    double errorRateMean = myTools.GetMean(errorRates);
+    double errorRateSD = myTools.GetSD(errorRates);
+
+    // Print Basic Information
+    cout << "\n" << myTools.RepeatString("=",title.length()+18) << "\n"
+        << myTools.RepeatString(" ",9) << title << myTools.RepeatString(" ",9)
+        << "\n" << myTools.RepeatString("=",title.length()+18) << "\n" << endl;
+
+    cout << statTitle << "\n"
+        << qNum << " Questions, " << sNum << " Students, " << cNum << " Concepts" << "\n"
+        << myTools.SpaceString("Avg ErrorRate", 17) << "--->  " << myTools.Round(errorRateMean,3) * 100 << "%" << "\n"
+        << myTools.SpaceString("SD of ErrorRate",17) << "--->  " << myTools.Round(errorRateSD,3) * 100 << "%" << "\n" << endl;
+
+    // By Concept Analysis
+    string conceptTitle = myTools.RepeatString("-",12) + " Tested Concepts " + myTools.RepeatString("-",12);
+    string textbook = quizPtr->GetConceptPtr(0)->GetTextbook();
+
+    cout << conceptTitle << "\n"
+        << "Textbook: " << textbook << "\n" << endl;
+
+    for(int i=0; i<quizPtr->GetConceptAmount(); ++i){
+        Concept* conceptPtr = quizPtr->GetConceptPtr(i);
+        string conceptId = conceptPtr->GetConceptId();
+        string concept = conceptPtr->GetConcept();
+
+        /* Get the ID of all questions which tested this concept */
+        vector<Question*> questionPtrList;
+        vector<string> questionIds;
+        for(int j=0; j<quizPtr->GetQuestionAmount(); ++j) {
+            Question* questionPtr = quizPtr->GetQuestionPtr(j);
+            if(questionPtr->ConceptExist(conceptPtr)){
+                questionPtrList.push_back(questionPtr);
+                questionIds.push_back(to_string(questionPtr->GetQuestionId()));
+            }
+        }
+        string questionIdString = myTools.CombineStrings(questionIds,0,questionIds.size()-1,",");
+
+        /* Get the ID of all students who did wrong on this concept */
+        vector<string> studentIds;
+        for(int j=0; j<quizPtr->GetStudentAmount(); ++j){
+            AnswerSheet* asPtr = quizPtr->GetAnswerSheetPtr(j);
+            for(int z=0; z<questionIds.size(); ++z){
+                int questionId = stoi(questionIds[z]);
+                bool gradedAnswer = asPtr->GetGradedAnswer(questionId-1);
+
+                if(!gradedAnswer)
+                {
+                    studentIds.push_back(to_string(asPtr->GetStudentId()));
+                    break;
+                }
+            }
+        }
+        string studentIdString = myTools.CombineStrings(studentIds,0,studentIds.size()-1,",");
+
+        cout << myTools.SpaceString(conceptId,5) << concept << "\n"
+            << myTools.SpaceString("Related Questions",25) << "--->   "
+            << "(" << questionIds.size() << ") " << questionIdString << "\n"
+            << myTools.SpaceString("Students Made Mistake",25) << "--->   "
+            << "(" << studentIds.size() << ") " << studentIdString << "\n" << endl;
+
+
+
+    }
+
+
+//    // By Student Analysis
+//    for(int i=0; i<sNum ; ++i){
+//        AnswerSheet* asPtr = quizPtr->GetAnswerSheetPtr(i);
+//
+//        int studentId = asPtr->GetStudentId();
+//
+//    }
 }
 
 

@@ -31,6 +31,8 @@ public:
     string GetAnswer(int index) { return studentAnswer[index]; }
     bool GetGradedAnswer(int index) { return gradedAnswer[index]; }
     int GetErrorNum() { return errorNum; }
+    double GetErrorRate() { return errorRate; }
+    int GetQuestionAmount() { return questionAmount; }
 
     /**
      * @Brief get Question ptr by index (eg. questionId=1 at index 0)
@@ -47,6 +49,7 @@ public:
     void AddAnswer(string answer) { studentAnswer.push_back(answer); }
     void AddGradedAnswer(bool answer) { gradedAnswer.push_back(answer); }
     void SetErrorNum(int num) { errorNum = num; }
+    void SetErrorRate(double rate) { errorRate = rate; }
     void SetQuestionAmount(int amount) { questionAmount = amount; }
 
     /**
@@ -60,6 +63,7 @@ private:
     int studentId = -1;
 
     int errorNum = 0;
+    double errorRate = 0;
     int questionAmount = 0;
 
     vector<string> studentAnswer;

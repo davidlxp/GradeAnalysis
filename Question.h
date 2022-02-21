@@ -32,6 +32,7 @@ public:
     string GetAnswerKey() { return answerKey; }
     int GetConceptAmount() { return conceptAmount; }
     Concept* GetConceptPtr(int index) { return conceptPtrList[index]; }
+    bool ConceptExist(Concept* ptr) { return myTools.JudgePtrInList(conceptPtrList, ptr); }
 
     // ======================== Setters ======================== //
 
