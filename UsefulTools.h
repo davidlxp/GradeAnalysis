@@ -93,6 +93,13 @@ public:
     template <class T>
     T Round(T, int);
 
+    /**
+     * @Brief check if item in a list already.
+     * only works for simple or primitive type variables
+     */
+    template <class T>
+    bool ItemExist(vector<T>&, T);
+
 };
 
 template <class T>
@@ -151,6 +158,18 @@ template <class T>
 T UsefulTools::Round(T num, int numDecimal){
     int multi = pow(10, numDecimal);
     return(round(num * multi) / multi);
+}
+
+template <class T>
+bool UsefulTools::ItemExist(vector<T>& list, T x){
+    bool result = false;
+    for(int i=0; i<list.size(); ++i){
+        if(list[i] == x){
+            result = true;
+            break;
+        }
+    }
+    return result;
 }
 
 #endif //GRADEANALYSIS_USEFULTOOLS_H

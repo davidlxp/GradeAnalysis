@@ -9,6 +9,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <map>
 
 #include "AnswerSheet.h"
 #include "Concept.h"
@@ -25,7 +26,12 @@ public:
 
     // ======================== Getters ======================== //
 
+    /**
+     * @Brief two different function to get Quiz pointers
+     */
     Quiz* GetQuizPtr(string courseId, string quizId);
+    Quiz* GetQuizPtr(int index) { return quizPtrList[index]; }
+
     Question* GetQuestionPtr(string courseId, string quizId, int questionId);
     AnswerSheet* GetAnswerSheetPtr(string courseId, string quizId, int studentId);
     Student* GetStudentPtr(int studentId);
@@ -35,6 +41,11 @@ public:
      */
     Concept* GetConceptPtr(string, string);
     Concept* GetConceptPtrByName(string, string);
+
+    int GetQuizAmount() { return quizPtrList.size(); }
+    int GetQuestionAmount() { return questionPtrList.size(); }
+    int GetAnswerSheetAmount() { return answerSheetPtrList.size(); }
+    int GetStudentAmount() { return studentPtrList.size(); }
 
     // ======================== Setters ======================== //
 
@@ -52,9 +63,35 @@ public:
     void LoadOneQuiz(string);
 
     /**
+     * @Brief functions for initialize objects in GradeAnalysis
+     */
+    void InitQuiz(ReadHelper&);
+    void InitQuestion(ReadHelper&);
+    void InitAnswerSheet(ReadHelper&);
+    void InitStudent(ReadHelper&);
+    void InitConcept(ReadHelper&);
+
+    /**
+     * @Brief functions for adding pointer links to a type of objects
+     * @Note Please make sure running LinkQuestion before running LinkQuiz
+     */
+     void LinkQuestion(ReadHelper&);
+     void LinkQuiz(ReadHelper&);
+     void LinkAnswerSheet(ReadHelper&);
+     void LinkStudent(ReadHelper&);
+
+    /**
      * @Brief grade all the student answers for one quiz
      */
     void GradeOneQuiz(string, string);
+
+    /**
+     * @Brief functions for providing various of analysis
+     */
+    void BasicAnalysis(string, string);
+    void AnalyzeConcept(string, string);
+    void AnalyzeStudent(string, string);
+    void AnalyzeQuestion(string, string);
 
     /**
      * @Brief providing analysis report for one quiz
