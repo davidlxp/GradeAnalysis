@@ -312,11 +312,11 @@ void GradeAnalysis::AnalyzeConcept(string courseId, string quizId){
          << "Textbook: " << textbook << "\n\n"
          <<  myTools.SpaceString("[Students Made Mistake]",25) << " --->  "
          << "Students who did wrong on at least 1 question which tested this concept." << "\n"
-         <<  myTools.SpaceString("[Students Mistake Ratio]",25) << " --->  "
+         <<  myTools.SpaceString("[Mistake Ratio]",25) << " --->  "
          << "% of 'Students Made Mistake' out of all students." << "\n"
          << myTools.SpaceString("[Students Failed]", 25) << " --->  "
          << "Students who did wrong on ALL questions which tested this concept." << "\n"
-         <<  myTools.SpaceString("[Students Failed Ratio]",25) << " --->  "
+         <<  myTools.SpaceString("[Failed Ratio]",25) << " --->  "
          << "% of 'Students Failed' out of all students." << "\n" << endl;
 
     for(int i=0; i<quizPtr->GetConceptAmount(); ++i){
@@ -379,12 +379,12 @@ void GradeAnalysis::AnalyzeConcept(string courseId, string quizId){
 
              << myTools.SpaceString("Students Made Mistake",25) << "--->   "
              << "(" << studentIdsMistake.size() << ") " << stuMistakeString << "\n"
-             << myTools.SpaceString("Student Mistake Ratio",25) << "--->   "
+             << myTools.SpaceString("Mistake Ratio",25) << "--->   "
              << myTools.Round(studentMistakeRatio,3) * 100 << "%" << "\n"
 
              << myTools.SpaceString("Students Failed",25) << "--->   "
              << "(" << studentIdsFail.size() << ") " << stuFailString << "\n"
-             << myTools.SpaceString("Student Failed Ratio",25) << "--->   "
+             << myTools.SpaceString("Failed Ratio",25) << "--->   "
              << myTools.Round(studentFailRatio,3) * 100 << "%" << "\n" << endl;
     }
 }
