@@ -1,0 +1,32 @@
+Textbook: C++ Development
+CHAPTER 7 Arrays 375
+7.1 Arrays Hold Multiple Values 375
+7.2 Accessing Array Elements 377
+7.3 No Bounds Checking in C++ 384
+7.4 Array Initialization 387
+7.5 The Range-Based for Loop 392
+7.6 Processing Array Contents 396
+7.7 Focus on Software Engineering: Using Parallel Arrays 404
+7.8 Arrays as Function Arguments 407
+7.9 Two-Dimensional Arrays 418
+7.10 Arrays with Three or More Dimensions 425
+7.11 Focus on Problem Solving and Program Design: A Case Study 427
+7.12 If You Plan to Continue in Computer Science: Introduction to the STL vector 429
+CHAPTER 8 Searching and Sorting Arrays 457
+8.1 Focus on Software Engineering: Introduction to Search Algorithms 457
+8.2 Focus on Problem Solving and Program Design: A Case Study 463
+8.3 Focus on Software Engineering: Introduction to Sorting Algorithms 470
+8.4 Focus on Problem Solving and Program Design: A Case Study 477
+8.5 If You Plan to Continue in Computer Science: Sorting and Searching vectors 485
+CHAPTER 9 Pointers 495
+9.1 Getting the Address of a Variable 495
+9.2 Pointer Variables 497
+9.3 The Relationship Between Arrays and Pointers 504
+9.4 Pointer Arithmetic 508
+9.5 Initializing Pointers 510
+9.6 Comparing Pointers 511
+9.7 Pointers as Function Parameters 513
+9.8 Focus on Software Engineering: Dynamic Memory Allocation 522
+9.9 Focus on Software Engineering: Returning Pointers from Functions 526
+9.10 Using Smart Pointers to Avoid Memory Leaks 533
+9.11 Focus on Problem Solving and Program Design: A Case Study 536
